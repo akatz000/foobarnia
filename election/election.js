@@ -2,8 +2,9 @@ exports.tally = function(votes) {
   var len = votes.length;
   var majority = Math.floor( len / 2 ) + 1;
   var votecount = {};
+
   for (var i = 0;i < len;i++) {
-    var valueString = votes[i].toString();
+    var valueString = votes[i];
     if (votecount[valueString]) {
       votecount[valueString] += 1;
       if (votecount[valueString] >= majority) {
@@ -19,7 +20,17 @@ exports.tally = function(votes) {
   var second = 0;
   var third = 0;
 
+  var countsCandidates = {};
+
   Object.keys(votecount).forEach(function(key) {
+
+    if (countsCandidates[votecount[key]]) {
+      countsCandidates[votecount[key]].push(parseInt(key));
+    }
+    else {
+      countsCandidates[votecount[key]] = [parseInt(key)];
+    }
+
     var value = votecount[key];
     if (value > first) {
       third = second;
@@ -37,31 +48,14 @@ exports.tally = function(votes) {
     }
   });
 
-  var results = []
-  Object.keys(votecount).forEach(function(key) {
-    if (votecount[key] == first) {
-      results.push(parseInt(key));
-    }
-  });
-  if (results.length >= 3) {
-    return results;
-  }
+  var results = [];
+  var firstThreeCount = [first, second, third];
 
-  Object.keys(votecount).forEach(function(key) {
-    if (votecount[key] == second) {
-      results.push(parseInt(key));
+  for (var i = 0;i < 3;i++) {
+    results = results.concat(countsCandidates[firstThreeCount[i]]);
+    if (results.length >= 3) {
+      return results;
+      break;
     }
-  });
-  if (results.length >= 3) {
-    return results;
-  }
-
-  Object.keys(votecount).forEach(function(key) {
-    if (votecount[key] == third) {
-      results.push(parseInt(key));
-    }
-  });
-  if (results.length >= 3) {
-    return results;
   }
 }

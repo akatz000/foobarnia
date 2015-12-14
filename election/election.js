@@ -52,10 +52,14 @@ exports.tally = function(votes) {
   var firstThreeCount = [first, second, third];
 
   for (var i = 0;i < 3;i++) {
+    if (firstThreeCount[i] == 0) {
+      continue;
+    }
     results = results.concat(countsCandidates[firstThreeCount[i]]);
     if (results.length >= 3) {
       return results;
       break;
     }
   }
+  return results;
 }

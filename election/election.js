@@ -53,7 +53,7 @@ exports.tally = function(votes) {
 
   for (var i = 0;i < 3;i++) {
     if (firstThreeCount[i] == 0) {
-      continue;
+      break;
     }
     results = results.concat(countsCandidates[firstThreeCount[i]]);
     if (results.length >= 3) {

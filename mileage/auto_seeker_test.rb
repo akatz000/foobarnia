@@ -16,7 +16,9 @@ describe AutoSeeker do
       [2,'Blue',13999,25.0,'gas'],
       [3,'Teal',19000,27.0,'gas'],
       [4,'Red',14999,40.0,'diesel'],
-      [5,'Orange',123456,nil,'magic']
+      [5,'Orange',123456,nil,'magic'],
+      [6,'Orange',123456,nil,'magic'],
+      [7,'Orange',123456,nil,'magic']
     ]
     @seeker_nil = AutoSeeker.new data_nil
   end
